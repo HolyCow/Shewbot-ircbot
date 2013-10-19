@@ -1,0 +1,5 @@
+BOTNAME=Shewbottest-local
+BOTCHANNEL=5by5test
+IRC_SERVER=irc.freenode.org
+TITLE_SUBMISSION_URL=http://showbot.com/titles/create
+API_KEY=nkvorp8hgsodpso9jkendfs9r

@@ -1,0 +1,5 @@
+.dotcloud
+_site
+.vagrant
+.env
+.env-prod
