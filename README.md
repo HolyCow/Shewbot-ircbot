@@ -1,6 +1,6 @@
 == Shewbot and/or Showbot
 
-Bot that connects to an IRC channel and suggests titles via REST interface.
+Bot that connects to an IRC channel and uploads title suggestions via REST interface.
 
 == Environment Variables Required
 
