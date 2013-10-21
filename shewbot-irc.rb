@@ -2,6 +2,7 @@ require 'cinch'
 require 'dotenv'
 require 'rest-client'
 require 'json'
+require 'securerandom'
 
 if ARGV.first
   Dotenv.load(ARGV.first)
@@ -32,7 +33,9 @@ bot = Cinch::Bot.new do
       if e.http_code == 422
         m.user.send "'#{title}' was already submitted"
       else
-        m.user.send "An unhandled error occured - #{e.response}"
+        code = SecureRandom.hex
+        m.user.send "Something went wrong. Code: #{code}"
+        puts "An unhandled error occured - #{code}: " + e.inspect
       end
     end
 
