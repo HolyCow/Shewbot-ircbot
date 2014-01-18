@@ -31,7 +31,13 @@ bot = Cinch::Bot.new do
         m.user.send "'#{title}' accepted"
     rescue => e 
       if e.http_code == 422
-        m.user.send "'#{title}' was already submitted"
+        result_message = "Problems with '#{title}': "
+        JSON.parse(e.response).each do | key, value | 
+          value.each do | message |
+            result_message << message + '. '
+          end
+        end
+        m.user.send result_message
       else
         code = SecureRandom.hex
         m.user.send "Something went wrong. Code: #{code}"
