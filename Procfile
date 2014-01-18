@@ -1,1 +1,1 @@
-worker: bundle exec ruby funbot.rb
+worker: bundle exec ruby shewbot-irc.rb
