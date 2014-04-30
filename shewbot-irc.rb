@@ -67,14 +67,14 @@ bot = Cinch::Bot.new do
       else
         code = SecureRandom.hex
         puts "An unhandled error occured - #{code}: " + e.inspect
-        m.user.send "Something went wrong. Code: #{code}"
+        m.user.send "Something went wrong. Code: #{code}" + e.inspect
       end
     end
   end
 
 
   on :message, /^!help/ do |m|
-    m.user.send "!s - suggest a title; !help - this"
+    m.user.send "!s - suggest a title; !l - submit a link; !help - this"
   end
 
 
