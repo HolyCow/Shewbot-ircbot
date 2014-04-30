@@ -67,7 +67,7 @@ bot = Cinch::Bot.new do
       else
         code = SecureRandom.hex
         puts "An unhandled error occured - #{code}: " + e.inspect
-        m.user.send "Something went wrong. Code: #{code}" + e.inspect
+        m.user.send "Something went wrong. Code: #{code}"
       end
     end
   end
