@@ -34,7 +34,7 @@ bot = Cinch::Bot.new do
         result_message = "Problems with '#{title}': "
         JSON.parse(e.response).each do | key, value | 
           value.each do | message |
-            result_message << message + '. '
+            result_message << key + ' ' + message + '. '
           end
         end
         m.user.send result_message
@@ -46,6 +46,32 @@ bot = Cinch::Bot.new do
     end
 
   end
+
+  on :message, /^!l (.*$)/ do |m, title|
+    puts "Got link suggestion #{link}"
+
+    begin
+      RestClient.post ENV['LINK_SUBMISSION_URL'], 
+        {link: link, user: m.user.nick}.to_json, 
+        :content_type => :json, :'Authorization' => 'Token token="' + ENV['API_KEY'] + '"'
+        m.user.send "'#{link}' accepted"
+    rescue => e 
+      if e.http_code == 422
+        result_message = "Problems with '#{link}': "
+        JSON.parse(e.response).each do | key, value | 
+          value.each do | message |
+            result_message << key + ' ' + message + '. '
+          end
+        end
+        m.user.send result_message
+      else
+        code = SecureRandom.hex
+        m.user.send "Something went wrong. Code: #{code}"
+        puts "An unhandled error occured - #{code}: " + e.inspect
+      end
+    end
+  end
+
 
   on :message, /^!help/ do |m|
     m.user.send "!s - suggest a title; !help - this"
