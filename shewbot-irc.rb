@@ -52,7 +52,7 @@ bot = Cinch::Bot.new do
 
     begin
       RestClient.post ENV['LINK_SUBMISSION_URL'], 
-        {link: link, user: m.user.nick}.to_json, 
+        {url: link, user: m.user.nick}.to_json, 
         :content_type => :json, :'Authorization' => 'Token token="' + ENV['API_KEY'] + '"'
         m.user.send "'#{link}' accepted"
     rescue => e 
