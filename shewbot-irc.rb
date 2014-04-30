@@ -47,7 +47,7 @@ bot = Cinch::Bot.new do
 
   end
 
-  on :message, /^!l (.*$)/ do |m, title|
+  on :message, /^!l (.*$)/ do |m, link|
     puts "Got link suggestion #{link}"
 
     begin
