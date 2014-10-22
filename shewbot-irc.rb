@@ -144,8 +144,8 @@ bot = Cinch::Bot.new do
     help_message = '!help - this'
     help_message << '; !quiet - bot will stop sending you successful title confirmation' if !ENV['QUIET_URL'].nil?
     help_message << '; !s - suggest a title' if !ENV['TITLE_SUBMISSION_URL'].nil?
-    help_message << '; !l - suggest a title' if !ENV['LINK_SUBMISSION_URL'].nil?
-    help_message << '; !q - suggest a title' if !ENV['QUESTION_SUBMISSION_URL'].nil?
+    help_message << '; !l - suggest a link' if !ENV['LINK_SUBMISSION_URL'].nil?
+    help_message << '; !q - suggest a question' if !ENV['QUESTION_SUBMISSION_URL'].nil?
 
     m.user.send help_message
   end
