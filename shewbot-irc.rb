@@ -10,8 +10,13 @@ else
   Dotenv.load
 end
 
+class OverloadError < RuntimeError
+end
+
 
 ENV['BOTCHANNEL'] = '#' + ENV['BOTCHANNEL']
+
+$user_hash = {}
 
 bot = Cinch::Bot.new do
 
@@ -53,14 +58,27 @@ bot = Cinch::Bot.new do
     puts "Got title suggestion #{title}"
 
     begin
+
+      if $user_hash.has_key?(m.user.nick.to_sym)
+        puts "#{m.user.nick} - #{$user_hash[m.user.nick.to_sym]} - #{(Time.new - $user_hash[m.user.nick.to_sym]).to_int}"
+        if (Time.new - $user_hash[m.user.nick.to_sym]).to_int < 1
+          raise OverloadError, "Submitting too fast"
+        end
+      end
+
+      $user_hash[m.user.nick.to_sym] = Time.new
+
       RestClient.post ENV['TITLE_SUBMISSION_URL'], 
         {title: title, user: m.user.nick, host: m.user.host, username: m.user.user}.to_json, 
         :content_type => :json, :'Authorization' => 'Token token="' + ENV['API_KEY'] + '"'
         m.user.send "'#{title}' accepted"
     rescue ArgumentError
       m.user.send "!s is not enabled"
-    rescue => e 
-      if e.http_code == 422
+    rescue OverloadError
+      m.user.send "You are submitting too fast"
+    rescue => e
+      http_code = e.http_code rescue nil
+      if http_code == 422
         result_message = "Problems with '#{title}': "
         JSON.parse(e.response).each do | key, value | 
           if key == 'show_id'
