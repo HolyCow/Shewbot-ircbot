@@ -3,6 +3,7 @@ require 'dotenv'
 require 'rest-client'
 require 'json'
 require 'securerandom'
+$stdout.sync = true
 
 if ARGV.first
   Dotenv.load(ARGV.first)
