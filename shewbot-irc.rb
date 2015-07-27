@@ -55,7 +55,7 @@ bot = Cinch::Bot.new do
 
   end
 
-  on :channel, /^!s (.*$)/ do |m, title|
+  on :channel, /^![Ss] (.*$)/ do |m, title|
     puts "Got title suggestion #{title}"
 
     begin
@@ -102,7 +102,7 @@ bot = Cinch::Bot.new do
 
   end
 
-  on :channel, /^!l (.*$)/ do |m, link|
+  on :channel, /^![Ll] (.*$)/ do |m, link|
     puts "Got link suggestion #{link}"
 
     begin
@@ -129,7 +129,7 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :channel, /^!q (.*$)/ do |m, link|
+  on :channel, /^![Qq] (.*$)/ do |m, link|
     puts "Got question #{link}"
 
     begin
